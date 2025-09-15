@@ -58,9 +58,15 @@ class Proj1Estimator:
         :param dataframe:
         :return:
         """
+
+        print('entereld in .predict')
         try:
             if self.loaded_model is None:
+                print('enterd in load model condition')
                 self.loaded_model = self.load_model()
+                print('Model loaded from s3')
+            print('prddiction now  ' ,self.loaded_model.predict(dataframe=dataframe))
             return self.loaded_model.predict(dataframe=dataframe)
+        
         except Exception as e:
             raise MyException(e, sys)

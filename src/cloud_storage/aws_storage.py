@@ -22,7 +22,7 @@ class SimpleStorageService:
         Initializes the SimpleStorageService instance with S3 resource and client
         from the S3Client class.
         """
-        s3_client = S3Client()
+        s3_client = S3Client(region_name="us-east-1")
         self.s3_resource = s3_client.s3_resource
         self.s3_client = s3_client.s3_client
 
