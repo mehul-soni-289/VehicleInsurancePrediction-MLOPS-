@@ -1,62 +1,209 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vehicle Insurance Prediction</title>
-    <!-- Corrected the CSS path -->
-    <link rel="stylesheet" href="/static/css/style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="/static/css/style.css" />
+  </head>
+  <body>
     <div class="container">
-        <h1>Vehicle Insurance Prediction</h1>
+      <h1>Vehicle Insurance Prediction</h1>
 
-        <form method="post" action="/">
-            <label for="Gender">Gender (1: Male, 0: Female):</label>
-            <input type="number" id="Gender" name="Gender" min="0" max="1" required>
+      <form method="post" action="/" class="card" id="predict-form">
+        <div class="grid">
+          <div class="field">
+            <label for="Gender">Gender</label>
+            <select id="Gender" name="Gender" required>
+              <option value="" disabled selected>Select</option>
+              <option value="1">Male</option>
+              <option value="0">Female</option>
+            </select>
+          </div>
 
-            <label for="Age">Age:</label>
-            <input type="number" id="Age" name="Age" required>
+          <div class="field">
+            <label for="Age">Age</label>
+            <input type="number" id="Age" name="Age" min="0" required />
+          </div>
 
-            <label for="Driving_License">Driving License (0: No, 1: Yes):</label>
-            <input type="number" id="Driving_License" name="Driving_License" min="0" max="1" required>
+          <div class="field">
+            <label for="Driving_License">Driving License</label>
+            <select id="Driving_License" name="Driving_License" required>
+              <option value="" disabled selected>Select</option>
+              <option value="1">Yes</option>
+              <option value="0">No</option>
+            </select>
+          </div>
 
-            <label for="Region_Code">Region Code:</label>
-            <input type="number" step="0.01" id="Region_Code" name="Region_Code" required>
+          <div class="field">
+            <label for="Region_Code">Region Code</label>
+            <input
+              type="number"
+              step="0.01"
+              id="Region_Code"
+              name="Region_Code"
+              required
+            />
+          </div>
 
-            <label for="Previously_Insured">Previously Insured (0: No, 1: Yes):</label>
-            <input type="number" id="Previously_Insured" name="Previously_Insured" min="0" max="1" required>
+          <div class="field">
+            <label for="Previously_Insured">Previously Insured</label>
+            <select id="Previously_Insured" name="Previously_Insured" required>
+              <option value="" disabled selected>Select</option>
+              <option value="1">Yes</option>
+              <option value="0">No</option>
+            </select>
+          </div>
 
-            <label for="Annual_Premium">Annual Premium:</label>
-            <input type="number" step="0.01" id="Annual_Premium" name="Annual_Premium" required>
+          <div class="field">
+            <label for="Annual_Premium">Annual Premium</label>
+            <input
+              type="number"
+              step="0.01"
+              id="Annual_Premium"
+              name="Annual_Premium"
+              required
+            />
+          </div>
 
-            <label for="Policy_Sales_Channel">Policy Sales Channel:</label>
-            <input type="number" step="0.01" id="Policy_Sales_Channel" name="Policy_Sales_Channel" required>
+          <div class="field">
+            <label for="Policy_Sales_Channel">Policy Sales Channel</label>
+            <input
+              type="number"
+              step="0.01"
+              id="Policy_Sales_Channel"
+              name="Policy_Sales_Channel"
+              required
+            />
+          </div>
 
-            <label for="Vintage">Vintage:</label>
-            <input type="number" id="Vintage" name="Vintage" required>
+          <div class="field">
+            <label for="Vintage">Vintage</label>
+            <input type="number" id="Vintage" name="Vintage" required />
+          </div>
 
-            <label for="Vehicle_Age_lt_1_Year">Vehicle Age < 1 Year (0: No, 1: Yes):</label>
-            <input type="number" id="Vehicle_Age_lt_1_Year" name="Vehicle_Age_lt_1_Year" min="0" max="1" required>
+          <div class="field">
+            <label for="Vehicle_Age_lt_1_Year">Vehicle Age < 1 Year</label>
+            <select
+              id="Vehicle_Age_lt_1_Year"
+              name="Vehicle_Age_lt_1_Year"
+              required
+            >
+              <option value="" disabled selected>Select</option>
+              <option value="1">Yes</option>
+              <option value="0">No</option>
+            </select>
+          </div>
 
-            <label for="Vehicle_Age_gt_2_Years">Vehicle Age > 2 Years (0: No, 1: Yes):</label>
-            <input type="number" id="Vehicle_Age_gt_2_Years" name="Vehicle_Age_gt_2_Years" min="0" max="1" required>
+          <div class="field">
+            <label for="Vehicle_Age_gt_2_Years">Vehicle Age > 2 Years</label>
+            <select
+              id="Vehicle_Age_gt_2_Years"
+              name="Vehicle_Age_gt_2_Years"
+              required
+            >
+              <option value="" disabled selected>Select</option>
+              <option value="1">Yes</option>
+              <option value="0">No</option>
+            </select>
+          </div>
 
-            <label for="Vehicle_Damage_Yes">Vehicle Damage (0: No, 1: Yes):</label>
-            <input type="number" id="Vehicle_Damage_Yes" name="Vehicle_Damage_Yes" min="0" max="1" required>
+          <div class="field">
+            <label for="Vehicle_Damage_Yes">Vehicle Damage</label>
+            <select id="Vehicle_Damage_Yes" name="Vehicle_Damage_Yes" required>
+              <option value="" disabled selected>Select</option>
+              <option value="1">Yes</option>
+              <option value="0">No</option>
+            </select>
+          </div>
+        </div>
+        <div class="actions">
+          <button type="submit">Predict</button>
+        </div>
+      </form>
 
-            <button type="submit">Predict</button>
-        </form>
-
-        <form method="get" action="/train">
-            <button type="submit" class="train-button">Train Model</button>
-        </form>
-
-        {% if context %}
-            <div class="result">
-                <h2>Result: {{ context }}</h2>
+      {% if context and context != 'Rendering' %}
+      <div id="result-modal" class="modal" data-open="true">
+        <div class="modal-content" id="modal-card">
+          <span class="modal-close" id="modal-close">×</span>
+          <div class="modal-header">
+            <div class="status-icon" id="status-icon">!</div>
+            <div>
+              <h2 id="modal-title">Prediction</h2>
+              <p class="modal-subtitle" id="modal-subtitle">
+                Eligibility result
+              </p>
             </div>
-        {% endif %}
+          </div>
+          <p class="prediction-text" id="prediction-text">{{ context }}</p>
+          <div class="modal-actions">
+            <button id="modal-ok" class="button">OK</button>
+          </div>
+        </div>
+      </div>
+      {% endif %}
     </div>
-</body>
+
+    <!-- Loading overlay -->
+    <div id="loading-overlay" class="loading-overlay" style="display: none">
+      <div class="loading-content">
+        <div class="spinner" aria-hidden="true"></div>
+        <div class="loading-text">Processing prediction…</div>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        var modal = document.getElementById("result-modal");
+        var modalCard = document.getElementById("modal-card");
+        var predictionEl = document.getElementById("prediction-text");
+        var statusIcon = document.getElementById("status-icon");
+        var modalTitle = document.getElementById("modal-title");
+        var modalSubtitle = document.getElementById("modal-subtitle");
+        // Enhance modal content based on server context
+        if (modal && predictionEl && modalCard) {
+          var raw = predictionEl.textContent || "";
+          var isYes = /yes/i.test(raw);
+          var message = isYes
+            ? "You are Eligible for insurance."
+            : "You are not eligible for insurance.";
+          predictionEl.textContent = message;
+          modalCard.classList.add(isYes ? "success" : "error");
+          if (statusIcon) statusIcon.textContent = isYes ? "✓" : "!";
+          if (modalTitle)
+            modalTitle.textContent = isYes ? "Eligible" : "Not Eligible";
+          if (modalSubtitle)
+            modalSubtitle.textContent = isYes
+              ? "Great news!"
+              : "Please review your details.";
+
+          function closeModal() {
+            modal.style.display = "none";
+          }
+          document.getElementById("modal-close").onclick = closeModal;
+          document.getElementById("modal-ok").onclick = closeModal;
+          window.onclick = function (event) {
+            if (event.target === modal) closeModal();
+          };
+        }
+
+        // Loading overlay on submit
+        var form = document.getElementById("predict-form");
+        var overlay = document.getElementById("loading-overlay");
+        if (form && overlay) {
+          form.addEventListener("submit", function (e) {
+            if (form.getAttribute("data-submitting") === "1") {
+              return;
+            }
+            e.preventDefault();
+            overlay.style.display = "flex";
+            form.setAttribute("data-submitting", "1");
+            setTimeout(function () {
+              form.submit();
+            }, 60);
+          });
+        }
+      })();
+    </script>
+  </body>
 </html>
