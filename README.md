@@ -1,4 +1,4 @@
-# 🚀 Vehicle Data ML App – MLOps Project  
+# 🚀 Vehicle Insurance Prediction – MLOps Project
 
 An end-to-end **MLOps project** created for the purpose of **learning and exploring MLOps concepts** such as reproducibility, automation, cloud deployment, and CI/CD pipelines.  
 The project focuses more on **MLOps workflows** than on machine learning modeling itself.  
