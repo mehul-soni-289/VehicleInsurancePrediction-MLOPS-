@@ -122,7 +122,7 @@
         </div>
       </form>
 
-      {% if context and context != 'Rendering' %}
+      {% if context %}
       <div id="result-modal" class="modal" data-open="true">
         <div class="modal-content" id="modal-card">
           <span class="modal-close" id="modal-close">×</span>
@@ -197,10 +197,11 @@
             }
             e.preventDefault();
             overlay.style.display = "flex";
+            overlay.style.opacity = "1";
+            // force reflow so overlay paints before navigation
+            void overlay.offsetHeight;
             form.setAttribute("data-submitting", "1");
-            setTimeout(function () {
-              form.submit();
-            }, 60);
+            form.submit();
           });
         }
       })();
